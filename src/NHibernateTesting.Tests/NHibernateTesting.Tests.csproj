@@ -64,6 +64,9 @@
   <ItemGroup>
     <Compile Include="ComponentMappingTests.cs" />
     <Compile Include="ManyToOneMappingTests.cs" />
+    <Compile Include="OneToManyMappingTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SessionFactoryExtentions.cs" />
     <Compile Include="SimplePropertyMappingTests.cs" />
