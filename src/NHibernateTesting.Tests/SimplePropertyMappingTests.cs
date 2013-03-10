@@ -61,6 +61,68 @@ namespace NHibernateTesting.Tests
             });
         }
 
+        [Test]
+        public void ShouldDeleteEntity()
+        {
+            var persisted = new SimpleFlatClass
+            {
+                StringValue = "StringValue",
+                DateTimeValue = new DateTime(2013, 01, 01, 02, 03, 04),
+                BooleanValue = true,
+                Decimalvalue = 10.31M,
+                NulableInt = null,
+                EnumValue = SimpleFlatClass.MyEnum.Value02
+            };
+
+            WithNew(session => { session.Save(persisted); });
+
+            WithNew(session =>
+            {
+                var retrived = session.Get<SimpleFlatClass>(persisted.Id);
+                session.Delete(retrived);
+            });
+
+            WithNew(session =>
+            {
+                var retrived = session.Get<SimpleFlatClass>(persisted.Id);
+                retrived.Should().BeNull();
+            });
+        }
+
+        [Test]
+        public void WillMakeSelectWhenDeletingWithLoad()
+        {
+            var persisted = new SimpleFlatClass
+            {
+                StringValue = "StringValue",
+                DateTimeValue = new DateTime(2013, 01, 01, 02, 03, 04),
+                BooleanValue = true,
+                Decimalvalue = 10.31M,
+                NulableInt = null,
+                EnumValue = SimpleFlatClass.MyEnum.Value02
+            };
+
+            WithNew(session => { session.Save(persisted); });
+
+            SessionFactory.Statistics.Clear();
+
+            WithNew(session =>
+            {
+                //At first i thought that you could delete an entity without loading it
+                //but nhibernate will load the proxy when deleting, so it can determine cascades
+                var retrived = session.Load<SimpleFlatClass>(persisted.Id);
+                session.Delete(retrived);
+            });
+
+            SessionFactory.Statistics.PrepareStatementCount.Should().Be(2);
+
+            WithNew(session =>
+            {
+                var retrived = session.Get<SimpleFlatClass>(persisted.Id);
+                retrived.Should().BeNull();
+            });
+        }
+
         public class SimpleFlatClass
         {
             public virtual int Id { get; protected set; }
