@@ -1,5 +1,7 @@
-﻿using FluentNHibernate.Cfg;
+﻿using System.Linq;
+using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
+using FluentNHibernate.Mapping;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Tool.hbm2ddl;
@@ -32,7 +34,18 @@ namespace NHibernateTesting.Tests
                         .BuildSessionFactory();
         }
 
-        public abstract void Mappings(MappingConfiguration mappingConfig);
+        public virtual void Mappings(MappingConfiguration mappingConfig)
+        {
+            var mappings = from type in GetType().GetNestedTypes()
+                           where type.BaseType != null
+                           let baseType = type.BaseType
+                           where baseType.IsGenericType
+                           where baseType.GetGenericTypeDefinition().IsAssignableFrom(typeof(ClassMap<>))
+                           select type;
+
+            foreach (var mapping in mappings)
+                mappingConfig.FluentMappings.Add(mapping);
+        }
 
         private void Config(Configuration configuration)
         {
