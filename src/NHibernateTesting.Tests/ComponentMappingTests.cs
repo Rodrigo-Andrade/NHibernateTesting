@@ -33,6 +33,24 @@ namespace NHibernateTesting.Tests
                 });
         }
 
+        [Test]
+        public void EmptyComponentWillBeRetrievedAsNull()
+        {
+            var persisted = new User
+            {
+                Name = "User Name",
+                Address = new Address()
+            };
+
+            WithNew(session => { session.Save(persisted); });
+
+            WithNew(session =>
+            {
+                var retrieved = session.Get<User>(persisted.Id);
+                retrieved.Address.Should().BeNull();
+            });
+        }
+
         public class User
         {
             public virtual int Id { get; protected set; }
