@@ -1,9 +1,7 @@
 ﻿using FluentAssertions;
 using FluentAssertions.Equivalency;
 using FluentNHibernate.Mapping;
-using NHibernate;
 using NUnit.Framework;
-using System;
 
 namespace NHibernateTesting.Tests
 {
