@@ -2,6 +2,7 @@
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using FluentNHibernate.Mapping;
+using HibernatingRhinos.Profiler.Appender.NHibernate;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Tool.hbm2ddl;
@@ -32,6 +33,12 @@ namespace NHibernateTesting.Tests
                         .Mappings(Mappings)
                         .ExposeConfiguration(Config)
                         .BuildSessionFactory();
+        }
+
+        [TestFixtureSetUp]
+        public void TextFixtureSetUp()
+        {
+            NHibernateProfiler.Initialize();
         }
 
         public virtual void Mappings(MappingConfiguration mappingConfig)
