@@ -70,6 +70,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="OneToOneMappingTests.cs" />
+    <Compile Include="OneToOneWithPrimaryKeyTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SessionFactoryExtentions.cs" />
     <Compile Include="SimplePropertyMappingTests.cs" />
