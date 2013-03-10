@@ -33,6 +33,34 @@ namespace NHibernateTesting.Tests
                 });
         }
 
+        [Test]
+        public void WillUpdatePropertiesWithoutExplicitCallToUpdate()
+        {
+            var persisted = new SimpleFlatClass
+            {
+                StringValue = "StringValue",
+                DateTimeValue = new DateTime(2013, 01, 01, 02, 03, 04),
+                BooleanValue = true,
+                Decimalvalue = 10.31M,
+                NulableInt = null,
+                EnumValue = SimpleFlatClass.MyEnum.Value02
+            };
+
+            WithNew(session => { session.Save(persisted); });
+
+            WithNew(session =>
+            {
+                var retrived = session.Get<SimpleFlatClass>(persisted.Id);
+                retrived.StringValue = "NewValue";
+            });
+
+            WithNew(session =>
+            {
+                var updated = session.Get<SimpleFlatClass>(persisted.Id);
+                updated.StringValue.Should().Be("NewValue");
+            });
+        }
+
         public class SimpleFlatClass
         {
             public virtual int Id { get; protected set; }
