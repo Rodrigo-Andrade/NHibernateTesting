@@ -21,15 +21,11 @@ namespace NHibernateTesting.Tests
                 EnumValue = SimpleFlatClass.MyEnum.Value02
             };
 
-            var id = WithNew(session =>
-            {
-                session.Save(persisted);
-                return persisted.Id;
-            });
+            WithNew(session => { session.Save(persisted); });
 
             WithNew(session =>
                 {
-                    var retrived = session.Get<SimpleFlatClass>(id);
+                    var retrived = session.Get<SimpleFlatClass>(persisted.Id);
 
                     retrived.
                         ShouldHave().AllProperties()
