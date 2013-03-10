@@ -1,5 +1,4 @@
 ﻿using FluentAssertions;
-using FluentNHibernate.Cfg;
 using FluentNHibernate.Mapping;
 using System;
 
@@ -66,11 +65,6 @@ namespace NHibernateTesting.Tests
 
                 References(x => x.User);
             }
-        }
-
-        public override void Mappings(MappingConfiguration mappingConfig)
-        {
-            mappingConfig.FluentMappings.Add<UserMap>().Add<OrderMap>();
         }
     }
 }

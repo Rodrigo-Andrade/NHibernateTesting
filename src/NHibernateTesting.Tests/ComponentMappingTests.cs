@@ -1,5 +1,4 @@
 ﻿using FluentAssertions;
-using FluentNHibernate.Cfg;
 using FluentNHibernate.Mapping;
 using NUnit.Framework;
 
@@ -104,11 +103,6 @@ namespace NHibernateTesting.Tests
                         c.Map(x => x.City);
                     });
             }
-        }
-
-        public override void Mappings(MappingConfiguration mappingConfig)
-        {
-            mappingConfig.FluentMappings.Add<UserMap>();
         }
     }
 }

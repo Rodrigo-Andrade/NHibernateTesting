@@ -1,5 +1,4 @@
 ﻿using FluentAssertions;
-using FluentNHibernate.Cfg;
 using FluentNHibernate.Mapping;
 using NUnit.Framework;
 using System.Collections.Generic;
@@ -89,13 +88,6 @@ namespace NHibernateTesting.Tests
                 Map(x => x.Number);
                 Map(x => x.City);
             }
-        }
-
-        public override void Mappings(MappingConfiguration mappingConfig)
-        {
-            mappingConfig.FluentMappings
-                .Add<UserMap>()
-                .Add<AddressMap>();
         }
     }
 }

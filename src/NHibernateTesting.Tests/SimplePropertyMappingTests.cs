@@ -1,5 +1,4 @@
 ﻿using FluentAssertions;
-using FluentNHibernate.Cfg;
 using FluentNHibernate.Mapping;
 using NUnit.Framework;
 using System;
@@ -151,11 +150,6 @@ namespace NHibernateTesting.Tests
                 Map(x => x.NulableInt);
                 Map(x => x.EnumValue);
             }
-        }
-
-        public override void Mappings(MappingConfiguration mappingConfig)
-        {
-            mappingConfig.FluentMappings.Add<SimpleFlatClassMap>();
         }
     }
 }
