@@ -62,6 +62,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include=".Net\ReflectionTests.cs" />
     <Compile Include="ComponentMappingTests.cs" />
     <Compile Include="ManyToOneMappingTests.cs" />
     <Compile Include="OneToManyMappingTests.cs">
