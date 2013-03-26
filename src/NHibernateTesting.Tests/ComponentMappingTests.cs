@@ -28,6 +28,7 @@ namespace NHibernateTesting.Tests
 
                     retrieved
                         .ShouldHave().AllProperties()
+                        .IncludingNestedObjects()
                         .EqualTo(persisted);
                 });
         }
@@ -54,7 +55,6 @@ namespace NHibernateTesting.Tests
         {
             public virtual int Id { get; protected set; }
             public virtual string Name { get; set; }
-
             public virtual Address Address { get; set; }
         }
 
@@ -63,30 +63,6 @@ namespace NHibernateTesting.Tests
             public string Street { get; set; }
             public string Number { get; set; }
             public string City { get; set; }
-
-            protected bool Equals(Address other)
-            {
-                return string.Equals(City, other.City) && string.Equals(Number, other.Number) && string.Equals(Street, other.Street);
-            }
-
-            public override bool Equals(object obj)
-            {
-                if (ReferenceEquals(null, obj)) return false;
-                if (ReferenceEquals(this, obj)) return true;
-                if (obj.GetType() != GetType()) return false;
-                return Equals((Address)obj);
-            }
-
-            public override int GetHashCode()
-            {
-                unchecked
-                {
-                    var hashCode = (City != null ? City.GetHashCode() : 0);
-                    hashCode = (hashCode * 397) ^ (Number != null ? Number.GetHashCode() : 0);
-                    hashCode = (hashCode * 397) ^ (Street != null ? Street.GetHashCode() : 0);
-                    return hashCode;
-                }
-            }
         }
 
         public class UserMap : ClassMap<User>

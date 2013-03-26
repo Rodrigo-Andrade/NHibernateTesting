@@ -65,7 +65,7 @@ namespace NHibernateTesting.Tests
                 var retrieved = session.Get<User>(persisted.Id);
                 var address = retrieved.Address;
                 var newUser = new User { Address = address };
-                //NHibernate will ignore this the new assigned association
+                //NHibernate will ignore this new assigned association
                 address.User = newUser;
                 session.Save(newUser);
                 return newUser;
