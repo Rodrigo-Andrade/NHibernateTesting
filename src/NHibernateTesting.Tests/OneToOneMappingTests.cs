@@ -9,7 +9,7 @@ namespace NHibernateTesting.Tests
     public class OneToOneWithForeignKeyMappingTests : TestCase
     {
         [Test]
-        public void WillNotAllowMoreThenOneAssocioation()
+        public void WillNotAllowMoreThenOneAssociation()
         {
             var persisted = new User
             {
