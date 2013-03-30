@@ -2,7 +2,7 @@
 using FluentNHibernate.Mapping;
 using NUnit.Framework;
 
-namespace NHibernateTesting.Tests.Relacoes.Unidirecionais
+namespace NHibernateTesting.Tests.Relacoes.Unidirecionais.ComTabelaDeLigacao
 {
     public class ManyToOneComTabelaDeLigacaoTestes : TestCase
     {
