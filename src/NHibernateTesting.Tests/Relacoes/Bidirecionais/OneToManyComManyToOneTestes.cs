@@ -15,8 +15,7 @@ namespace NHibernateTesting.Tests.Relacoes.Bidirecionais
                 Id(x => x.Id);
                 Map(x => x.Nome);
                 HasMany(x => x.LivrosPublicados)
-                    .Inverse()
-                    .Cascade.AllDeleteOrphan();
+                    .Inverse();
             }
         }
 
@@ -35,20 +34,21 @@ namespace NHibernateTesting.Tests.Relacoes.Bidirecionais
         {
             var persistido = WithNew(session =>
             {
-                var autor = new Autor
+                var autor = new Autor { Nome = "Autor" };
+                session.Save(autor);
+
+                var livros = new[]
                 {
-                    Nome = "Autor",
-                    LivrosPublicados =
-                    {
-                        new Livro {Titulo = "Livro 01"},
-                        new Livro {Titulo = "Livro 02"}
-                    }
+                    new Livro {Titulo = "Livro 01", Autor = autor},
+                    new Livro {Titulo = "Livro 02", Autor = autor}
                 };
 
-                foreach (var livro in autor.LivrosPublicados)
-                    livro.Autor = autor;
+                foreach (var livro in livros)
+                {
+                    autor.LivrosPublicados.Add(livro);
+                    session.Save(livro);
+                }
 
-                session.Save(autor);
                 return autor;
             });
 
