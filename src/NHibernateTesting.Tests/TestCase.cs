@@ -39,13 +39,13 @@ namespace NHibernateTesting.Tests
                 .Standard
                 .UsingFile("NHibernate");
 
-            //var msSql = MsSqlConfiguration
-            //    .MsSql2008
-            //    .ConnectionString(x => x.FromConnectionStringWithKey("NHibernateMsSql"));
+            var msSql = MsSqlConfiguration
+                .MsSql2008
+                .ConnectionString(x => x.FromConnectionStringWithKey("NHibernateMsSql"));
 
             SessionFactory =
                 Fluently.Configure()
-                        .Database(sqlLite)
+                        .Database(msSql)
                         .Mappings(Mappings)
                         .ExposeConfiguration(Config)
                         .BuildSessionFactory();

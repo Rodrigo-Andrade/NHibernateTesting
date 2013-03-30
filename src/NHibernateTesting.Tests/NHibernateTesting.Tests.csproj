@@ -85,7 +85,12 @@
     <Compile Include="OneToOneMappingTests.cs" />
     <Compile Include="OneToOneWithPrimaryKeyTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Relacoes\Bidirecionais\ComTabelaDeLigacao\ManyToManyTestes.cs" />
+    <Compile Include="Relacoes\Bidirecionais\ComTabelaDeLigacao\OneToManyComManyToOneTestes.cs" />
+    <Compile Include="Relacoes\Bidirecionais\ComTabelaDeLigacao\OneToOneComTabelaDeLigacaoTestes.cs" />
     <Compile Include="Relacoes\Bidirecionais\OneToManyComManyToOneTestes.cs" />
+    <Compile Include="Relacoes\Bidirecionais\OneToOnePorChavePrimariaTestes.cs" />
+    <Compile Include="Relacoes\Bidirecionais\OneToOnePorChaveEstrangeiraTests.cs" />
     <Compile Include="Relacoes\Unidirecionais\Dominio.cs" />
     <Compile Include="Relacoes\Unidirecionais\ComTabelaDeLigacao\ManyToManyTestes.cs" />
     <Compile Include="Relacoes\Unidirecionais\ComTabelaDeLigacao\ManyToOneComTabelaDeLigacaoTestes.cs" />
