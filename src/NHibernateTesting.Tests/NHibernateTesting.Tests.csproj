@@ -77,6 +77,16 @@
     <Compile Include=".Net\InheritanceTypeTests.cs" />
     <Compile Include=".Net\ReflectionTests.cs" />
     <Compile Include="ComponentMappingTests.cs" />
+    <Compile Include="Curso\Bidirecionais\ManyToMany.cs" />
+    <Compile Include="Curso\Bidirecionais\OneToManyComManyToOne.cs" />
+    <Compile Include="Curso\Bidirecionais\OneToManyComManyToOneComJoinTable.cs" />
+    <Compile Include="Curso\Bidirecionais\OneToOnePorChaveEstrangeira.cs" />
+    <Compile Include="Curso\Bidirecionais\OneToOnePorChavePrimaria.cs" />
+    <Compile Include="Curso\Unidirecionais\ManyToMany.cs" />
+    <Compile Include="Curso\Unidirecionais\OneToMany.cs" />
+    <Compile Include="Curso\Unidirecionais\OneToManyComJoinTable.cs" />
+    <Compile Include="Curso\Unidirecionais\OneToOneForeignKey.cs" />
+    <Compile Include="Curso\Unidirecionais\OneToOneForeignKeyComJoinTable.cs" />
     <Compile Include="ManyToManyMappingTests.cs" />
     <Compile Include="ManyToOneMappingTests.cs" />
     <Compile Include="OneToManyMappingTests.cs">

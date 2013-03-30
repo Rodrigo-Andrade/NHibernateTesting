@@ -35,9 +35,9 @@ namespace NHibernateTesting.Tests
         [SetUp]
         public void SetUp()
         {
-            var sqlLite = SQLiteConfiguration
-                .Standard
-                .UsingFile("NHibernate");
+            //var sqlLite = SQLiteConfiguration
+            //    .Standard
+            //    .UsingFile("NHibernate");
 
             var msSql = MsSqlConfiguration
                 .MsSql2008
@@ -67,7 +67,7 @@ namespace NHibernateTesting.Tests
                            select type;
 
             foreach (var mapping in mappings)
-                mappingConfig.FluentMappings.Add(mapping);
+                mappingConfig.FluentMappings.Add(mapping).ExportTo(@"c:\");
         }
 
         private void Config(Configuration configuration)

@@ -9,7 +9,6 @@ namespace NHibernateTesting.Tests.Relacoes.Bidirecionais.ComTabelaDeLigacao
 {
     public class ManyToManyTestes : TestCase
     {
-
         public class AutorMap : ClassMap<Autor>
         {
             public AutorMap()
