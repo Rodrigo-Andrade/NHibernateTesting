@@ -13,23 +13,39 @@ namespace NHibernateTesting.Tests
 {
     public abstract class TestCase
     {
-        private const bool SHOW_SCHEMA_ON_CONSOLE = true;
-        private const bool EXPORT_SCHEMA = true;
-        private const bool LOG_SQL_IN_CONSOLE = true;
-
         public ISessionFactory SessionFactory { get; private set; }
+
+        public virtual bool ShowSchemaOnConsole
+        {
+            get { return true; }
+        }
+
+        public virtual bool ShouldExportSchema
+        {
+            get { return true; }
+        }
+
+        public static bool LogSqlInConsole
+        {
+            get { return true; }
+        }
 
         private SchemaExport _schemaExport;
 
         [SetUp]
         public void SetUp()
         {
-            var db = SQLiteConfiguration.Standard
-                                        .UsingFile("NHibernate");
+            var sqlLite = SQLiteConfiguration
+                .Standard
+                .UsingFile("NHibernate");
+
+            //var msSql = MsSqlConfiguration
+            //    .MsSql2008
+            //    .ConnectionString(x => x.FromConnectionStringWithKey("NHibernateMsSql"));
 
             SessionFactory =
                 Fluently.Configure()
-                        .Database(db)
+                        .Database(sqlLite)
                         .Mappings(Mappings)
                         .ExposeConfiguration(Config)
                         .BuildSessionFactory();
@@ -59,7 +75,7 @@ namespace NHibernateTesting.Tests
             configuration.DataBaseIntegration(c =>
                 {
                     c.LogFormattedSql = true;
-                    c.LogSqlInConsole = LOG_SQL_IN_CONSOLE;
+                    c.LogSqlInConsole = LogSqlInConsole;
                 });
 
             configuration.SessionFactory().GenerateStatistics();
@@ -73,13 +89,13 @@ namespace NHibernateTesting.Tests
         private void ExportSchema(Configuration configuration)
         {
             _schemaExport = new SchemaExport(configuration);
-            _schemaExport.Create(SHOW_SCHEMA_ON_CONSOLE, EXPORT_SCHEMA);
+            _schemaExport.Create(ShowSchemaOnConsole, ShouldExportSchema);
         }
 
         [TearDown]
         public void TearDown()
         {
-            _schemaExport.Drop(SHOW_SCHEMA_ON_CONSOLE, EXPORT_SCHEMA);
+            _schemaExport.Drop(ShowSchemaOnConsole, ShouldExportSchema);
 
             using (SessionFactory)
             {

@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="NHibernateTesting.Tests.Relacoes.Unidirecionais.OneToMany.Autor">
+    <Position X="1.25" Y="0.5" Width="1.5" />
+    <Members>
+      <Method Name="Autor" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAACEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Relacoes\Unidirecionais\OneToMany\OneToManyTestes.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="LivrosPublicados" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="NHibernateTesting.Tests.Relacoes.Unidirecionais.OneToMany.Livro">
+    <Position X="4.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Relacoes\Unidirecionais\OneToMany\OneToManyTestes.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
