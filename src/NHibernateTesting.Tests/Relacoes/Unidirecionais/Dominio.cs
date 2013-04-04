@@ -7,11 +7,11 @@ namespace NHibernateTesting.Tests.Relacoes.Unidirecionais
         public virtual int Id { get; protected set; }
         public virtual string Nome { get; set; }
 
-        public virtual IList<Livro> LivrosPublicados { get; protected set; }
+        public virtual IList<Livro> Livros { get; protected set; }
 
         public Autor()
         {
-            LivrosPublicados = new List<Livro>();
+            Livros = new List<Livro>();
         }
     }
 

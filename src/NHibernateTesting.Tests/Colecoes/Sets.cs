@@ -1,20 +1,19 @@
-﻿using System.Collections.Generic;
-using FluentAssertions;
+﻿using FluentAssertions;
 using FluentNHibernate.Mapping;
+using Iesi.Collections.Generic;
 using NUnit.Framework;
 
-namespace NHibernateTesting.Tests.Curso.Unidirecionais
+namespace NHibernateTesting.Tests.Colecoes
 {
-    public class OneToManyComJoinTable : TestCase
+    public class Sets : TestCase
     {
         public class PessoaMap : ClassMap<Pessoa>
         {
             public PessoaMap()
             {
                 Id(x => x.Id);
-                HasManyToMany(x => x.Enderecos)
-                    .ChildKeyColumns
-                    .Add("Endereco_id", c => c.Unique());
+                HasMany(x => x.Enderecos)
+                    .AsSet();
             }
         }
 
@@ -31,10 +30,18 @@ namespace NHibernateTesting.Tests.Curso.Unidirecionais
         {
             var persistido = WithNew(session =>
             {
-                var pessoa = new Pessoa {Enderecos = {new Endereco(), new Endereco()}};
+                var pessoa = new Pessoa
+                                {
+                                    Enderecos =
+                                        {
+                                            new Endereco(),
+                                            new Endereco()
+                                        }
+                                };
 
                 foreach (var endereco in pessoa.Enderecos)
                     session.Save(endereco);
+
                 session.Save(pessoa);
 
                 return pessoa;
@@ -54,11 +61,11 @@ namespace NHibernateTesting.Tests.Curso.Unidirecionais
         public class Pessoa
         {
             public virtual int Id { get; set; }
-            public virtual IList<Endereco> Enderecos { get; set; }
+            public virtual ISet<Endereco> Enderecos { get; set; }
 
             public Pessoa()
             {
-                Enderecos = new List<Endereco>();
+                Enderecos = new HashedSet<Endereco>();
             }
         }
 

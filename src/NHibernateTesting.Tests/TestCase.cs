@@ -25,7 +25,7 @@ namespace NHibernateTesting.Tests
             get { return true; }
         }
 
-        public static bool LogSqlInConsole
+        public virtual bool LogSqlInConsole
         {
             get { return true; }
         }
@@ -49,6 +49,12 @@ namespace NHibernateTesting.Tests
                         .Mappings(Mappings)
                         .ExposeConfiguration(Config)
                         .BuildSessionFactory();
+
+            Seed();
+        }
+
+        protected virtual void Seed()
+        {
         }
 
         [TestFixtureSetUp]

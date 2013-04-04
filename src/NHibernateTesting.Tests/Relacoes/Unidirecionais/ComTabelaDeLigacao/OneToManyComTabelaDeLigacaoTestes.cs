@@ -12,7 +12,7 @@ namespace NHibernateTesting.Tests.Relacoes.Unidirecionais.ComTabelaDeLigacao
             {
                 Id(x => x.Id);
                 Map(x => x.Nome);
-                HasManyToMany(x => x.LivrosPublicados)
+                HasManyToMany(x => x.Livros)
                     .ChildKeyColumns.Add("Livro_Id", x => x.Unique());
             }
         }
@@ -32,7 +32,7 @@ namespace NHibernateTesting.Tests.Relacoes.Unidirecionais.ComTabelaDeLigacao
             var pesistido = new Autor
             {
                 Nome = "Autor",
-                LivrosPublicados =
+                Livros =
                 {
                     new Livro {Titulo = "Livro 01"},
                     new Livro {Titulo = "Livro 02"}
@@ -41,7 +41,7 @@ namespace NHibernateTesting.Tests.Relacoes.Unidirecionais.ComTabelaDeLigacao
 
             WithNew(session =>
             {
-                foreach (var livro in pesistido.LivrosPublicados)
+                foreach (var livro in pesistido.Livros)
                     session.Save(livro);
                 session.Save(pesistido);
             });

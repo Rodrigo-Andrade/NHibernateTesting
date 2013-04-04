@@ -12,7 +12,7 @@ namespace NHibernateTesting.Tests.Relacoes.Unidirecionais
             {
                 Id(x => x.Id);
                 Map(x => x.Nome);
-                HasMany(x => x.LivrosPublicados);
+                HasMany(x => x.Livros);
             }
         }
 
@@ -31,7 +31,7 @@ namespace NHibernateTesting.Tests.Relacoes.Unidirecionais
             var pesistido = new Autor
             {
                 Nome = "Autor",
-                LivrosPublicados =
+                Livros =
                 {
                     new Livro {Titulo = "Livro 01"},
                     new Livro {Titulo = "Livro 02"}
@@ -40,7 +40,7 @@ namespace NHibernateTesting.Tests.Relacoes.Unidirecionais
 
             WithNew(session =>
                         {
-                            foreach (var livro in pesistido.LivrosPublicados)
+                            foreach (var livro in pesistido.Livros)
                                 session.Save(livro);
                             session.Save(pesistido);
                         });

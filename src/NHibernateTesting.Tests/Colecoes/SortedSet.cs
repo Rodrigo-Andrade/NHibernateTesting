@@ -1,20 +1,21 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using FluentAssertions;
 using FluentNHibernate.Mapping;
+using Iesi.Collections.Generic;
 using NUnit.Framework;
 
-namespace NHibernateTesting.Tests.Curso.Unidirecionais
+namespace NHibernateTesting.Tests.Colecoes
 {
-    public class OneToManyComJoinTable : TestCase
+    public class SortedSet : TestCase
     {
         public class PessoaMap : ClassMap<Pessoa>
         {
             public PessoaMap()
             {
                 Id(x => x.Id);
-                HasManyToMany(x => x.Enderecos)
-                    .ChildKeyColumns
-                    .Add("Endereco_id", c => c.Unique());
+                HasMany(x => x.Enderecos)
+                    .AsSet();
             }
         }
 
@@ -31,10 +32,18 @@ namespace NHibernateTesting.Tests.Curso.Unidirecionais
         {
             var persistido = WithNew(session =>
             {
-                var pessoa = new Pessoa {Enderecos = {new Endereco(), new Endereco()}};
+                var pessoa = new Pessoa
+                {
+                    Enderecos =
+                        {
+                            new Endereco(),
+                            new Endereco()
+                        }
+                };
 
                 foreach (var endereco in pessoa.Enderecos)
                     session.Save(endereco);
+
                 session.Save(pessoa);
 
                 return pessoa;
@@ -54,17 +63,26 @@ namespace NHibernateTesting.Tests.Curso.Unidirecionais
         public class Pessoa
         {
             public virtual int Id { get; set; }
-            public virtual IList<Endereco> Enderecos { get; set; }
+            public virtual Iesi.Collections.Generic.ISet<Endereco> Enderecos { get; set; }
 
             public Pessoa()
             {
-                Enderecos = new List<Endereco>();
+                Enderecos = new OrderedSet<Endereco>();
             }
         }
 
         public class Endereco
         {
             public virtual int Id { get; set; }
+            public virtual string Logradouro { get; set; }
+        }
+
+        public class EnderecoComparer : IComparer<Endereco>
+        {
+            public int Compare(Endereco x, Endereco y)
+            {
+                return string.Compare(x.Logradouro, y.Logradouro, StringComparison.InvariantCulture);
+            }
         }
     }
 }

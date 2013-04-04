@@ -28,23 +28,15 @@ namespace NHibernateTesting.Tests.Curso.Unidirecionais
         public void DevePersistirCorretamente()
         {
             var persistido = WithNew(session =>
-                                         {
-                                             var pessoa = new Pessoa
-                                                              {
-                                                                  Enderecos =
-                                                                      {
-                                                                          new Endereco(),
-                                                                          new Endereco()
-                                                                      }
-                                                              };
+            {
+                var pessoa = new Pessoa {Enderecos = {new Endereco(), new Endereco()}};
 
-                                             foreach (var endereco in pessoa.Enderecos)
-                                                 session.Save(endereco);
+                foreach (var endereco in pessoa.Enderecos)
+                    session.Save(endereco);
+                session.Save(pessoa);
 
-                                             session.Save(pessoa);
-
-                                             return pessoa;
-                                         });
+                return pessoa;
+            });
 
             WithNew(session =>
             {
